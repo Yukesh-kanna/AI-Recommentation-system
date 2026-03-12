@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.confirmation_title or "Confirmation" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="header-container">
+    <h1>{{ t.confirmation_title or "Confirmation" }}</h1>
+    <a href="{{ url_for('index') }}" class="back-btn">{{ t.go_home or "← Back" }}</a>
+</header>
+
+<main class="container">
+
+    {% if selected %}
+        <div class="congrats-banner">
+            <h2>🎉 {{ t.congratulations or "Congratulations!" }}</h2>
+            <p>{{ t.selection_success or "You have successfully selected an internship!" }}</p>
+        </div>
+
+        <div class="card confirmation-card">
+            <div class="card-header">
+                <h2>{{ selected.title }}</h2>
+                <span class="company">{{ selected.company }}</span>
+            </div>
+
+            <div class="card-info">
+                <p><strong>Sector:</strong> {{ selected.sector }}</p>
+                <p><strong>Location:</strong> {{ selected.location }}</p>
+                <p><strong>Duration:</strong> {{ selected.duration }}</p>
+                <p><strong>Capacity:</strong> {{ selected.capacity }}</p>
+            </div>
+
+            <div class="skills-section">
+                <p><strong>Required Skills:</strong></p>
+                <div class="skills required">
+                    {% for skill in selected.required_skills %}
+                        <span>{{ skill }}</span>
+                    {% endfor %}
+                </div>
+
+                <p><strong>Matched Skills:</strong></p>
+                <div class="skills matched">
+                    {% for skill in selected.matched_skills %}
+                        <span>{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="match-section">
+                <p><strong>Match %:</strong> {{ selected.match_percentage }}%</p>
+                <div class="match-bar-container">
+                    <div class="match-bar" style="width: {{ selected.match_percentage }}%;"></div>
+                </div>
+            </div>
+
+            <form method="get" action="{{ url_for('index') }}">
+                <button type="submit">{{ t.back_to_home or "Back to Home" }}</button>
+            </form>
+        </div>
+
+    {% else %}
+        <p class="no-recommendation">{{ t.no_selection or "No selection found." }}</p>
+    {% endif %}
+
+</main>
+
+</body>
+</html>
