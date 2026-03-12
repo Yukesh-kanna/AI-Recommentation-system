@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.userinfo_title or "User Information" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header-container">
+        <h1>{{ t.title or "Internship Recommendation System" }}</h1>
+        <div class="lang-select">
+            <form action="{{ url_for('set_language') }}" method="post">
+                <select name="lang" onchange="this.form.submit()">
+                    <option value="en" {% if lang == "en" %}selected{% endif %}>English</option>
+                    <option value="hi" {% if lang == "hi" %}selected{% endif %}>हिन्दी</option>
+                    <option value="ta" {% if lang == "ta" %}selected{% endif %}>தமிழ்</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-text">
+            <h2>{{ t.welcome or "Welcome!" }}</h2>
+            <p>{{ t.enter_details or "Please enter your details to continue" }}</p>
+        </div>
+
+        <form method="post">
+            <label for="name">{{ t.name_label or "Full Name" }}</label>
+            <input type="text" id="name" name="name" placeholder="{{ t.name_placeholder or 'Enter your full name' }}" required>
+
+            <label for="email">{{ t.email_label or "Email Address" }}</label>
+            <input type="email" id="email" name="email" placeholder="{{ t.email_placeholder or 'Enter your email address' }}" required>
+
+            <button type="submit">{{ t.continue_button or "Continue" }}</button>
+        </form>
+    </div>
+</body>
+</html>
