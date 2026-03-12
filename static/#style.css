@@ -1,0 +1,285 @@
+/* ------------------ GLOBAL ------------------ */ 
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f6f9;
+    color: #333;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* ------------------ HEADER ------------------ */
+.header-container {
+    background: #4a90e2;
+    color: white;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.header-container h1 {
+    font-size: 1.6rem;
+    text-align: center;
+    flex: 1;
+}
+
+.lang-select select {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Back button for results and confirmation */
+.back-btn {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background: rgba(255,255,255,0.2);
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+.back-btn:hover {
+    background: rgba(255,255,255,0.35);
+}
+
+/* ------------------ INDEX PAGE ------------------ */
+.container {
+    max-width: 650px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Intro text */
+.intro-text {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.intro-text h2 {
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+    color: #222;
+}
+.intro-text p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
+}
+input, select, textarea {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+input:focus, select:focus, textarea:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74,144,226,0.25);
+    outline: none;
+}
+
+/* Submit button */
+button[type="submit"] {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    background: #4a90e2;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+button[type="submit"]:hover {
+    background: #357ABD;
+    transform: translateY(-2px);
+}
+
+/* ------------------ RESULTS PAGE ------------------ */
+.recommendations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+    padding: 0;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.card-header h2 {
+    font-size: 1.25rem;
+    color: #222;
+}
+.company {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: bold;
+}
+
+.card-info p {
+    margin: 6px 0;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+/* Skills */
+.skills-section {
+    margin-top: 14px;
+}
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 5px 0 12px 0;
+}
+.skills span {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+.skills.required span {
+    background: #fce4e4;
+    color: #b00020;
+}
+.skills.matched span {
+    background: #e0f3e8;
+    color: #0a7d3e;
+}
+
+/* Match bar */
+.match-section {
+    margin: 12px 0;
+}
+.match-bar-container {
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 14px;
+}
+.match-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4a90e2, #50c878);
+    transition: width 0.5s ease;
+}
+
+/* Confirm button in cards */
+.card form button {
+    margin-top: 14px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background: #4a90e2;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+.card form button:hover {
+    background: #357ABD;
+    transform: translateY(-2px);
+}
+
+/* No recommendations */
+.no-recommendation {
+    text-align: center;
+    color: #777;
+    font-size: 1.1rem;
+    margin-top: 30px;
+}
+
+/* ------------------ CONFIRMATION PAGE ------------------ */
+.confirm-container {
+    max-width: 500px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 30px 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    text-align: center;
+}
+.confirm-container h2 {
+    font-size: 1.5rem;
+    color: #222;
+    margin-bottom: 20px;
+}
+.confirm-container p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 25px;
+}
+.confirm-container button {
+    padding: 12px 20px;
+    border-radius: 10px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+.confirm-container button:hover {
+    background: #357ABD;
+    transform: translateY(-2px);
+}
+
+/* ------------------ RESPONSIVE ------------------ */
+@media (max-width: 768px) {
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-container h1 {
+        font-size: 1.4rem;
+    }
+    .container {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+    .confirm-container {
+        margin: 40px 15px;
+        padding: 20px;
+    }
+}
