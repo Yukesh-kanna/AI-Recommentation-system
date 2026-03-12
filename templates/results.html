@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.title or "Internship Recommendations" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header-container">
+        <h1>{{ t.results_header or "Recommended Internships" }}</h1>
+        <div class="lang-select">
+            <form method="post" action="{{ url_for('set_language') }}">
+                <select name="lang" onchange="this.form.submit()">
+                    <option value="en" {% if lang=='en' %}selected{% endif %}>English</option>
+                    <option value="hi" {% if lang=='hi' %}selected{% endif %}>Hindi</option>
+                    <option value="ta" {% if lang=='ta' %}selected{% endif %}>Tamil</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        {% if recommendations %}
+            <div class="recommendations">
+                {% for rec in recommendations %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>{{ rec.title }}</h2>
+                            <span class="company">{{ rec.company }}</span>
+                        </div>
+
+                        <div class="card-info">
+                            <p><strong>{{ t.sector or "Sector" }}:</strong> {{ rec.sector }}</p>
+                            <p><strong>{{ t.location or "Location" }}:</strong> {{ rec.location }}</p>
+                            <p><strong>{{ t.duration or "Duration" }}:</strong> {{ rec.duration }}</p>
+                            <p><strong>{{ t.match or "Match" }}:</strong> {{ rec.match_percentage }}%</p>
+                        </div>
+
+                        <div class="skills-section">
+                            <p><strong>{{ t.required_skills or "Required Skills" }}:</strong></p>
+                            <div class="skills required">
+                                {% for skill in rec.required_skills %}
+                                    <span>{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <p><strong>{{ t.matched_skills or "Matched Skills" }}:</strong></p>
+                            <div class="skills matched">
+                                {% for skill in rec.matched_skills %}
+                                    <span>{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="match-section">
+                            <div class="match-bar-container">
+                                <div class="match-bar" style="width: {{ rec.match_percentage }}%;"></div>
+                            </div>
+                        </div>
+
+                        <form method="post" action="{{ url_for('confirm') }}">
+                            <input type="hidden" name="selected_id" value="{{ rec.id }}">
+                            <button type="submit">{{ t.confirm or "Confirm" }}</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-recommendation">{{ t.no_recommendation or "No internships matched your skills and preferences." }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
