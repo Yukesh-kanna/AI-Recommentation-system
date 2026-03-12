@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.title or "Internship Recommendation System" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function changeLang(select) { select.form.submit(); }
+    </script>
+</head>
+<body>
+
+<header class="header-container">
+    <h1 class="site-title">{{ t.title or "Internship Recommendation System" }}</h1>
+    <div class="lang-select">
+        <form method="post" action="{{ url_for('set_language') }}">
+            <select name="lang" onchange="changeLang(this)">
+                <option value="en" {% if lang=='en' %}selected{% endif %}>English</option>
+                <option value="hi" {% if lang=='hi' %}selected{% endif %}>हिन्दी</option>
+                <option value="ta" {% if lang=='ta' %}selected{% endif %}>தமிழ்</option>
+            </select>
+        </form>
+    </div>
+</header>
+
+<main class="container">
+    <div class="intro-text">
+        <h2>🔍 {{ t.find_best_match or "Find Your Best Internship Match" }}</h2>
+        <p>{{ t.subtitle_text or "Fill in your details to get personalized recommendations." }}</p>
+    </div>
+
+    <form method="post" action="{{ url_for('index') }}">
+        <label for="education">{{ t.education or "Education" }}</label>
+        <input id="education" name="education" placeholder="e.g. BSc, Diploma, MBA" required>
+
+        <label for="skills">{{ t.skills or "Skills (comma separated)" }}</label>
+        <input id="skills" name="skills_manual" placeholder="e.g. Python, Excel, SQL" required>
+
+        <label for="sector">{{ t.sector or "Preferred Sector" }}</label>
+        <input list="sectors_list" id="sector" name="sector_manual" placeholder="Type or select sector">
+        <datalist id="sectors_list">
+            <option value="Any">
+            {% for s in sectors %}
+                <option value="{{ s | title }}">
+            {% endfor %}
+        </datalist>
+
+        <label for="location">{{ t.location or "Preferred Location" }}</label>
+        <input list="locations_list" id="location" name="location_manual" placeholder="Type or select location">
+        <datalist id="locations_list">
+            <option value="Any">
+            {% for l in locations %}
+                <option value="{{ l | title }}">
+            {% endfor %}
+        </datalist>
+
+        <button type="submit">{{ t.get_recommendations or "Find Recommendations" }}</button>
+    </form>
+</main>
+
+</body>
+</html>
