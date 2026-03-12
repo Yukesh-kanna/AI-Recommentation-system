@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.allocation_title or "Internship Allocation" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="header-container">
+    <h1>{{ t.allocation_title or "Internship Allocation" }}</h1>
+    <a href="{{ url_for('index') }}" class="back-btn">{{ t.go_home or "← Back" }}</a>
+</header>
+
+<main class="container">
+
+    {% if allocations %}
+        <div class="recommendations">
+            {% for rec in allocations %}
+                <div class="card">
+                    <div class="card-header">
+                        <h2>{{ rec.Title }}</h2>
+                        <p class="company">{{ rec.Company }}</p>
+                    </div>
+
+                    <div class="card-info">
+                        <p><strong>Sector:</strong> {{ rec.Sector }}</p>
+                        <p><strong>Location:</strong> {{ rec.Location }}</p>
+                        <p><strong>Duration:</strong> {{ rec.Duration }}</p>
+                        <p><strong>Capacity:</strong> {{ rec.Capacity }}</p>
+                        <p><strong>Course:</strong> {{ rec.Course }}</p>
+                    </div>
+
+                    <div class="skills-section">
+                        <h3>Required Skills</h3>
+                        <div class="skills required">
+                            {% for skill in rec.Skills.split(';') %}
+                                <span>{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="match-section">
+                        <div class="match-bar-container">
+                            <div class="match-bar" style="width: 0%"></div> <!-- optional: future match -->
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-recommendation">{{ t.no_allocation or "No allocations found." }}</p>
+    {% endif %}
+
+</main>
+
+</body>
+</html>
